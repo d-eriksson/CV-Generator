@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as React from 'react'
+import { useOvermind, useState, useActions } from './overmind'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const App: React.FunctionComponent = () => {
+	// General
+	//const { state, actions, effects, reaction } = useOvermind()
+	// Or be specific
+	const { isLoggedIn, name } = useState().auth
+	const { logIn, logOut } = useActions().auth
+	if(isLoggedIn){
+		return(
+			<>
+				<p>{name} is Logged In</p>
+				<button onClick= {() => logOut()}>Log out</button>
+			</>
+		)
+	}
+	return (
+		<>
+			<p>Not Logged In</p>
+			<button onClick= {() => logIn("David")}>Log in</button>
+		</>
+	)
 }
 
-export default App;
+export default App
